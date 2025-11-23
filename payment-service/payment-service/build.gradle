@@ -40,6 +40,27 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-liquibase-test'
     testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    implementation 'org.springframework.boot:spring-boot-starter-json'
+
+    //Validation API
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    //MapStruct для маппинга DTO
+    implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
+
+    // Prometheus метрики
+    implementation 'io.micrometer:micrometer-registry-prometheus'
+
+}
+
+bootJar{
+    archiveBaseName = 'payment-service'
+    archiveVersion = project.version
+}
+
+springBoot {
+    buildInfo()
 }
 
 tasks.named('test') {

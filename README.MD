@@ -2,6 +2,12 @@
 
 Учебный проект — система peer-to-peer платежей на Spring Boot с Redis кэшированием.
 
+## 📁 Структура проекта
+p2p-payment-system-gaskarov/
+├── payment-service/ # Spring Boot микросервис
+├── docs/ # Документация
+└── docker-compose.yml # PostgreSQL + Redis
+
 ## 🚀 Технологии
 
 - **Backend:** Java 21, Spring Boot 3.2
