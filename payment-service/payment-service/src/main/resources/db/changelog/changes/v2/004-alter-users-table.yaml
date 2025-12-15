@@ -1,0 +1,90 @@
+databaseChangeLog:
+  - changeSet:
+      id: 004-alter-users-table
+      author: gaskarov
+      changes:
+        - dropColumn:
+            tableName: users
+            columnName: phone_number
+        - dropColumn:
+            tableName: users
+            columnName: status
+        - addColumn:
+            tableName: users
+            columns:
+              - column:
+                  name: password_hash
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+                    checkConstraint: status IN ('ACTIVE', 'BLOCKED', 'DELETED')
+              - column:
+                  name: deleted_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: true
+        - dropIndex:
+            indexName: idx_users_email
+            tableName: users
+        - createIndex:
+            indexName: idx_users_email
+            unique: true
+            tableName: users
+            columns:
+              - column:
+                  name: email
+        #- dropIndex:
+        #    indexName: idx_users_phone
+        #    tableName: users
+        - createIndex:
+            indexName: idx_users_status
+            tableName: users
+            columns:
+              - column:
+                  name: status
+      rollback:
+        - dropColumn:
+            tableName: users
+            columnName: status
+        - addColumn:
+            tableName: users
+            columns:
+              - column:
+                  name: phone_number
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+                    unique: true
+                    uniqueConstraintName: uq_users_phone
+              - column:
+                  name: status
+                  type: VARCHAR(20)
+                  defaultValue: ACTIVE
+                  constraints:
+                    nullable: false
+        - dropColumn:
+            tableName: users
+            columnName: deleted_at
+        - dropIndex:
+            indexName: idx_users_email
+            tableName: users
+        - createIndex:
+            indexName: idx_users_email
+            tableName: users
+            columns:
+              - column:
+                  name: email
+        - createIndex:
+            indexName: idx_users_phone
+            tableName: users
+            columns:
+              - column:
+                  name: phone_number
+        - dropIndex:
+            indexName: idx_users_status
+            tableName: users

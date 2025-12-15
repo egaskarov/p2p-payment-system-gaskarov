@@ -1,0 +1,53 @@
+databaseChangeLog:
+  - changeSet:
+      id: 007-create-transfer_limits-table
+      author: gaskarov
+      changes:
+        - createTable:
+            tableName: transfer_limits
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_transfer_limits
+              - column:
+                  name: wallet_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_transfer_limits_wallet_id
+                    references: wallets(id)
+                    onDelete: CASCADE
+              - column:
+                  name: max_single_transfer
+                  type: DECIMAL(19,2)
+              - column:
+                  name: max_daily_amount
+                  type: DECIMAL(19,2)
+              - column:
+                  name: max_daily_count
+                  type: INTEGER
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: true
+        - createIndex:
+            indexName: idx_transfer_limits_wallet_id
+            tableName: transfer_limits
+            columns:
+              - column:
+                  name: wallet_id
+      rollback:
+        - dropTable:
+            tableName: transfer_limits
