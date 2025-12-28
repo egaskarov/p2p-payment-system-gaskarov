@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-users-status-check
+      author: your-name
+      changes:
+        - sql:
+            sql: |
+              ALTER TABLE users
+              ADD CONSTRAINT ck_users_status
+              CHECK (status IN ('ACTIVE', 'BLOCKED', 'DELETED'));
+            rollbackSql: |
+              ALTER TABLE users
+              DROP CONSTRAINT ck_users_status;

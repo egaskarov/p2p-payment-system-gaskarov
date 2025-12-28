@@ -1,0 +1,45 @@
+databaseChangeLog:
+  - changeSet:
+      id: 008-seed-test-data1
+      author: gaskarov
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: email
+                  value: ivan@test.com
+              - column:
+                  name: password_hash
+                  value: $2a$12$R9h/cIPz0gi7CH4B0R0yKeN8o.97Qm9UaU3qJ4iZ9y5qPqN7Jq
+              - column:
+                  name: first_name
+                  value: Ivan
+              - column:
+                  name: last_name
+                  value: Drago
+              - column:
+                  name: status
+                  value: ACTIVE
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: email
+                  value: petr@test.com
+              - column:
+                  name: password_hash
+                  value: $2a$12$Lc4xZqR8WvT9yKjN2UfO.e5XmD1pQrS7tYvWxZaB3cDeFgHiJkLm
+              - column:
+                  name: first_name
+                  value: Petr
+              - column:
+                  name: last_name
+                  value: Kuleshov
+              - column:
+                  name: status
+                  value: ACTIVE
+      rollback:
+        - delete:
+            tableName: users
+            where: email IN ('ivan@test.com', 'petr@test.com')

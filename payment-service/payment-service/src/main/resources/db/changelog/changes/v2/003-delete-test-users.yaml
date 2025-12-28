@@ -1,0 +1,46 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003-delete-test-users
+      author: gaskarov
+      context: dev  # Выполнится только в dev окружении
+      changes:
+        - delete:
+            tableName: users
+            where: email IN ('john.doe@example.com', 'jane.smith@example.com')
+      rollback:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: email
+                  value: john.doe@example.com
+              - column:
+                  name: phone_number
+                  value: "+1234567890"
+              - column:
+                  name: first_name
+                  value: John
+              - column:
+                  name: last_name
+                  value: Doe
+              - column:
+                  name: status
+                  value: ACTIVE
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: email
+                  value: jane.smith@example.com
+              - column:
+                  name: phone_number
+                  value: "+1234567891"
+              - column:
+                  name: first_name
+                  value: Jane
+              - column:
+                  name: last_name
+                  value: Smith
+              - column:
+                  name: status
+                  value: ACTIVE

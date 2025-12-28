@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: 009-seed-test-data2
+      author: gaskarov
+      sqlFile:
+        path: db/changelog/changes/v2/009-seed-test-data2.sql
+        relativeToChangelogFile: false
+      rollback: |
+        
+        delete from wallets where user_id in (
+        select  user_id from users where email in ('ivan@test.com','petr@test.com');"
