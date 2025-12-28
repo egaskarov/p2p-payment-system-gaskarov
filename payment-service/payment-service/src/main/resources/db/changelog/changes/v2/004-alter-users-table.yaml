@@ -6,9 +6,6 @@ databaseChangeLog:
         - dropColumn:
             tableName: users
             columnName: phone_number
-        - dropColumn:
-            tableName: users
-            columnName: status
         - addColumn:
             tableName: users
             columns:
@@ -17,12 +14,6 @@ databaseChangeLog:
                   type: VARCHAR(255)
                   constraints:
                     nullable: false
-              - column:
-                  name: status
-                  type: VARCHAR(20)
-                  constraints:
-                    nullable: false
-                    checkConstraint: status IN ('ACTIVE', 'BLOCKED', 'DELETED')
               - column:
                   name: deleted_at
                   type: TIMESTAMP
@@ -48,9 +39,6 @@ databaseChangeLog:
               - column:
                   name: status
       rollback:
-        - dropColumn:
-            tableName: users
-            columnName: status
         - addColumn:
             tableName: users
             columns:
@@ -61,12 +49,6 @@ databaseChangeLog:
                     nullable: false
                     unique: true
                     uniqueConstraintName: uq_users_phone
-              - column:
-                  name: status
-                  type: VARCHAR(20)
-                  defaultValue: ACTIVE
-                  constraints:
-                    nullable: false
         - dropColumn:
             tableName: users
             columnName: deleted_at

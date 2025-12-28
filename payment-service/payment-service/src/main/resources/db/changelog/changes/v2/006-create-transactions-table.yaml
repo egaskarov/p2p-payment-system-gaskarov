@@ -49,7 +49,7 @@ databaseChangeLog:
                   type: VARCHAR(20)
                   constraints:
                     nullable: false
-                    checkConstraint: type IN ('PENDING', 'COMPLETED', 'FAILED', 'CANCELLED')
+                    checkConstraint: status IN ('PENDING', 'COMPLETED', 'FAILED', 'CANCELLED')
               - column:
                   name: description
                   type: text

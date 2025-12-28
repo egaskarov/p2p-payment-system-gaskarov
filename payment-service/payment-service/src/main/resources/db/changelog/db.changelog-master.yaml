@@ -19,3 +19,5 @@ databaseChangeLog:
       file: db/changelog/changes/v2/008-seed-test-data1.yaml
   - include:
       file: db/changelog/changes/v2/009-seed-test-data2.yaml
+  - include:
+      file: db/changelog/changes/v2/010-alter-users-table.yaml
